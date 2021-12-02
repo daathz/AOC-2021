@@ -29,6 +29,24 @@ public class Puzzle2 {
                 (current, next) -> new Coordinate(current.x + next.x, current.y + next.y)).multipliedCoords();
 
         System.out.println(result);
+
+        int result2 = inputs.stream().map(input -> {
+                    String[] arr = input.split(" ");
+                    switch (arr[0]) {
+                        case "up":
+                            return new CoordinateWithAim(0, 0, Integer.parseInt("-" + arr[1]));
+                        case "down":
+                            return new CoordinateWithAim(0, 0, Integer.parseInt(arr[1]));
+                        default:
+                            return new CoordinateWithAim(Integer.parseInt(arr[1]), 0, 0);
+                    }
+                }).reduce(new CoordinateWithAim(0, 0, 0),
+                        (current, next) -> new CoordinateWithAim(current.horizontalPosition + next.horizontalPosition,
+                                next.horizontalPosition != 0 ? current.depth + (next.horizontalPosition * current.aim) : current.depth,
+                                current.aim + next.aim))
+                .multiplyCoords();
+
+        System.out.println(result2);
     }
 
 
