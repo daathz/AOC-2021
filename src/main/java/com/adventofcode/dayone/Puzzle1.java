@@ -1,4 +1,4 @@
-package com.adventofcode.day.one;
+package com.adventofcode.dayone;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculateIncreasedDepthMeasurements {
+public class Puzzle1 {
 
     public static void main(String[] args) {
 
         // int count = calculateIncreasedDepthMeasurements(Arrays.asList("199", "200", "208", "210", "200", "207", "240", "269", "260", "263"));
 
-        List<Integer> measurements = createListFromFile("src/main/resources/inputs.txt");
+        List<Integer> measurements = createListFromFile("src/main/resources/puzzle_input_1.txt");
         List<Integer> threeWindowMeasurements = createSlidingWindowFromList(measurements, 3);
 
         System.out.println(calculateIncreasedDepthMeasurements(measurements));
