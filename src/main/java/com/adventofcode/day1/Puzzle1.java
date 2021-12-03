@@ -1,11 +1,9 @@
-package com.adventofcode.dayone;
+package com.adventofcode.day1;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.adventofcode.helper.InputReaderUtil.createIntListFromFile;
 
 public class Puzzle1 {
 
@@ -13,33 +11,11 @@ public class Puzzle1 {
 
         // int count = calculateIncreasedDepthMeasurements(Arrays.asList("199", "200", "208", "210", "200", "207", "240", "269", "260", "263"));
 
-        List<Integer> measurements = createListFromFile("src/main/resources/puzzle_input_1.txt");
+        List<Integer> measurements = createIntListFromFile("src/main/resources/puzzle_input_1.txt");
         List<Integer> threeWindowMeasurements = createSlidingWindowFromList(measurements, 3);
 
         System.out.println(calculateIncreasedDepthMeasurements(measurements));
         System.out.println(calculateIncreasedDepthMeasurements(threeWindowMeasurements));
-    }
-
-    private static List<Integer> createListFromFile(String path) {
-        try {
-            List<Integer> inputs = new ArrayList<>();
-
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                inputs.add(Integer.valueOf(line));
-            }
-            fileReader.close();
-
-            return inputs;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     private static List<Integer> createSlidingWindowFromList(List<Integer> inputList, int windowSize) {

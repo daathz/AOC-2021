@@ -1,4 +1,4 @@
-package com.adventofcode.daytwo;
+package com.adventofcode.day2;
 
 public class CoordinateWithAim {
     int horizontalPosition;

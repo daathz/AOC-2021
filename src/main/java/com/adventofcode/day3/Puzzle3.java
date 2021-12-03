@@ -1,11 +1,9 @@
-package com.adventofcode.daythree;
+package com.adventofcode.day3;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.adventofcode.helper.InputReaderUtil.createListFromFile;
 
 public class Puzzle3 {
 
@@ -93,27 +91,5 @@ public class Puzzle3 {
                 : (inputs.size() / 2) + 1;
 
         return (countTheOnes >= divisor) ? '1' : '0';
-    }
-
-    private static List<String> createListFromFile(String path) {
-        try {
-            List<String> inputs = new ArrayList<>();
-
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                inputs.add(line);
-            }
-            fileReader.close();
-
-            return inputs;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

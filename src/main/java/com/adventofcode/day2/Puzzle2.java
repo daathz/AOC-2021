@@ -1,12 +1,8 @@
-package com.adventofcode.daytwo;
+package com.adventofcode.day2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static com.adventofcode.helper.InputReaderUtil.createListFromFile;
 
 public class Puzzle2 {
 
@@ -47,28 +43,5 @@ public class Puzzle2 {
                 .multiplyCoords();
 
         System.out.println(result2);
-    }
-
-
-    private static List<String> createListFromFile(String path) {
-        try {
-            List<String> inputs = new ArrayList<>();
-
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                inputs.add(line);
-            }
-            fileReader.close();
-
-            return inputs;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }
