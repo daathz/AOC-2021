@@ -39,18 +39,18 @@ public class Puzzle3 {
 
         System.out.println(Integer.parseInt(gammaRate, 2) * Integer.parseInt(omegaRate, 2));
 
-        int oxygenGeneratorRating = Integer.parseInt(calculateOxygenGeneratorRating(0, inputs), 2);
-        int co2ScrubberRating = Integer.parseInt(calculateCo2ScrubberRating(0, inputs), 2);
+        int oxygenGeneratorRating = Integer.parseInt(calculateOxygenGeneratorRating(inputs), 2);
+        int co2ScrubberRating = Integer.parseInt(calculateCo2ScrubberRating(inputs), 2);
 
         System.out.println(oxygenGeneratorRating * co2ScrubberRating);
     }
 
-    private static String calculateOxygenGeneratorRating(int index, List<String> inputs) {
-        return calculateBitCriteria(index, inputs, true);
+    private static String calculateOxygenGeneratorRating(List<String> inputs) {
+        return calculateBitCriteria(0, inputs, true);
     }
 
-    private static String calculateCo2ScrubberRating(int index, List<String> inputs) {
-        return calculateBitCriteria(index, inputs, false);
+    private static String calculateCo2ScrubberRating(List<String> inputs) {
+        return calculateBitCriteria(0, inputs, false);
     }
 
     private static String calculateBitCriteria(int index, List<String> inputs, boolean isByMostCommonValue) {
