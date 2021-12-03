@@ -40,6 +40,59 @@ public class Puzzle3 {
         }
 
         System.out.println(Integer.parseInt(gammaRate, 2) * Integer.parseInt(omegaRate, 2));
+
+        int oxygenGeneratorRating = Integer.parseInt(calculateOxygenGeneratorRating(0, inputs), 2);
+        int co2ScrubberRating = Integer.parseInt(calculateCo2ScrubberRating(0, inputs), 2);
+
+        System.out.println(oxygenGeneratorRating * co2ScrubberRating);
+    }
+
+    private static String calculateOxygenGeneratorRating(int index, List<String> inputs) {
+        List<String> newInputs = new ArrayList<>();
+
+        char whatToAdd = howMany(index, inputs);
+
+        for (String input : inputs) {
+            if (input.charAt(index) == whatToAdd) {
+                newInputs.add(input);
+            }
+        }
+
+        if (newInputs.size() == 1) {
+            return newInputs.get(0);
+        } else {
+            return calculateOxygenGeneratorRating(index + 1, newInputs);
+        }
+    }
+
+    private static String calculateCo2ScrubberRating(int index, List<String> inputs) {
+        List<String> newInputs = new ArrayList<>();
+
+        char whatToAdd = howMany(index, inputs) == '1' ? '0' : '1';
+
+        for (String input : inputs) {
+            if (input.charAt(index) == whatToAdd) {
+                newInputs.add(input);
+            }
+        }
+
+        if (newInputs.size() == 1) {
+            return newInputs.get(0);
+        } else
+            return calculateCo2ScrubberRating(index + 1, newInputs);
+    }
+
+    private static char howMany(int index, List<String> inputs) {
+        int countTheOnes = 0;
+        for (String input : inputs) {
+            if (input.charAt(index) == '1') countTheOnes++;
+        }
+
+        int divisor = inputs.size() % 2 == 0
+                ? inputs.size() / 2
+                : (inputs.size() / 2) + 1;
+
+        return (countTheOnes >= divisor) ? '1' : '0';
     }
 
     private static List<String> createListFromFile(String path) {
