@@ -46,9 +46,21 @@ public class Puzzle3 {
     }
 
     private static String calculateOxygenGeneratorRating(int index, List<String> inputs) {
+        return calculateBitCriteria(index, inputs, true);
+    }
+
+    private static String calculateCo2ScrubberRating(int index, List<String> inputs) {
+        return calculateBitCriteria(index, inputs, false);
+    }
+
+    private static String calculateBitCriteria(int index, List<String> inputs, boolean isByMostCommonValue) {
         List<String> newInputs = new ArrayList<>();
 
         char whatToAdd = howMany(index, inputs);
+
+        if (!isByMostCommonValue) {
+            whatToAdd = whatToAdd == '1' ? '0' : '1';
+        }
 
         for (String input : inputs) {
             if (input.charAt(index) == whatToAdd) {
@@ -59,25 +71,8 @@ public class Puzzle3 {
         if (newInputs.size() == 1) {
             return newInputs.get(0);
         } else {
-            return calculateOxygenGeneratorRating(index + 1, newInputs);
+            return calculateBitCriteria(index + 1, newInputs, isByMostCommonValue);
         }
-    }
-
-    private static String calculateCo2ScrubberRating(int index, List<String> inputs) {
-        List<String> newInputs = new ArrayList<>();
-
-        char whatToAdd = howMany(index, inputs) == '1' ? '0' : '1';
-
-        for (String input : inputs) {
-            if (input.charAt(index) == whatToAdd) {
-                newInputs.add(input);
-            }
-        }
-
-        if (newInputs.size() == 1) {
-            return newInputs.get(0);
-        } else
-            return calculateCo2ScrubberRating(index + 1, newInputs);
     }
 
     private static char howMany(int index, List<String> inputs) {
