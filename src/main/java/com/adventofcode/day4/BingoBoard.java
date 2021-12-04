@@ -6,6 +6,7 @@ import java.util.List;
 public class BingoBoard {
     private int[][] values;
     private boolean[][] checked;
+    private boolean isWinner = false;
 
     public BingoBoard(List<String> inputs) {
         values = new int[5][5];
@@ -21,6 +22,8 @@ public class BingoBoard {
     }
 
     public boolean markBoard(int number) {
+        if (isWinner) return true;
+
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
                 if (values[i][j] == number) {
@@ -28,6 +31,7 @@ public class BingoBoard {
 
                     if (checkIfBoardWins()) {
                         System.out.println(calculateFinalScore(number));
+                        isWinner = true;
                         return true;
                     }
                 }

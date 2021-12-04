@@ -37,9 +37,7 @@ public class Puzzle4 {
                 int parsedValue = Integer.parseInt(number);
 
                 for (BingoBoard board : boards) {
-                    if (board.markBoard(parsedValue)) {
-                        return;
-                    }
+                    board.markBoard(parsedValue);
                 }
             }
         }
