@@ -8,7 +8,6 @@ import static com.adventofcode.helper.InputReaderUtil.createListFromFile;
 
 public class Puzzle8 {
 
-    // TODO 0 and 9 are replaced !!!!!
     public static void main(String[] args) {
         List<String> inputs = createListFromFile("src/main/resources/puzzle_input_8.txt");
 
