@@ -20,7 +20,14 @@ public class Puzzle11 {
             }
         }
 
-        System.out.println(calculateFlashes(100));
+        // System.out.println(calculateFlashes(195));
+        int step = 0;
+        while (!checkIfSynchronized()) {
+            doStep();
+            step++;
+        }
+
+        System.out.println(step);
     }
 
     private static int calculateFlashes(int steps) {
@@ -43,8 +50,6 @@ public class Puzzle11 {
                 if (octopuses[i][j] == 10) flash(i ,j);
             }
         }
-
-        printOctopuses();
     }
 
     private static void flash(int i, int j) {
@@ -100,5 +105,15 @@ public class Puzzle11 {
             System.out.print("\n");
         }
         System.out.print("\n");
+    }
+
+    private static boolean checkIfSynchronized() {
+        for (int i = 0; i < octopuses.length; ++i) {
+            for (int j = 0; j < octopuses[i].length; ++j) {
+                if (octopuses[i][j] != 0) return false;
+            }
+        }
+
+        return true;
     }
 }
