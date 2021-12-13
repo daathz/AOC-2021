@@ -1,8 +1,9 @@
 package com.adventofcode.day12;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +13,7 @@ public class Puzzle12 {
     private static List<Node> nodes = new ArrayList<>();
     private static List<Node> traversedNodes = new ArrayList<>();
     private static List<Node> traverseMap = new ArrayList<>();
-    private static int routeCount = 0;
+    private static Set<String> routes = new HashSet<>();
 
 
     public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class Puzzle12 {
 
         sortNeighbours();
         findRoutes();
-        System.out.println(routeCount);
+        printRoutes();
     }
 
     private static boolean isNodeExists(String name) {
@@ -47,7 +48,13 @@ public class Puzzle12 {
 
     private static void findRoutes() {
         Node startNode = getNodeByName("start");
-        findRoute(startNode);
+        // findRoute(startNode);
+        List<String> smallCaves = getSmallCaves();
+        for (String smallCave : smallCaves) {
+            traversedNodes = new ArrayList<>();
+            traverseMap = new ArrayList<>();
+            findComplexRoute(startNode, smallCave);
+        }
     }
 
     private static void findRoute(Node node) {
@@ -55,7 +62,7 @@ public class Puzzle12 {
         traverseMap.add(node);
         for (Node neighbour : node.getNeighbours()) {
             if (neighbour.getName().equals("end")) {
-                printRoute();
+                addRoute();
                 return;
             } else if (isUpperCase(neighbour.getName()) || !traversedNodes.contains(neighbour)) {
                 findRoute(neighbour);
@@ -65,6 +72,32 @@ public class Puzzle12 {
         }
     }
 
+    private static void findComplexRoute(Node node, String smallCave) {
+        traversedNodes.add(node);
+        traverseMap.add(node);
+        for (Node neighbour : node.getNeighbours()) {
+            if (neighbour.getName().equals("end")) {
+                addRoute();
+                return;
+            } else if ((neighbour.getName().equals(smallCave) && !smallCaveCanBeTraversed(smallCave))
+                    || isUpperCase(neighbour.getName())
+                    || !traversedNodes.contains(neighbour)) {
+                findComplexRoute(neighbour, smallCave);
+                traversedNodes.remove(neighbour);
+                traverseMap.remove(traverseMap.size() - 1);
+            }
+        }
+    }
+
+    private static boolean smallCaveCanBeTraversed(String name) {
+        int count = 0;
+        for (Node node : traversedNodes) {
+            if (node.getName().equals(name)) count++;
+        }
+
+        return count == 2;
+    }
+
     private static boolean isUpperCase(String name) {
         Pattern pattern = Pattern.compile("^[A-Z]+$");
         Matcher matcher = pattern.matcher(name);
@@ -72,15 +105,21 @@ public class Puzzle12 {
         return matcher.matches();
     }
 
-    private static void printRoute() {
+    private static void addRoute() {
         StringBuilder sb = new StringBuilder();
         for (Node node : traverseMap) {
             sb.append(node.getName()).append("-");
         }
         String result = sb.append("end").toString();
 
-        System.out.println(result);
-        routeCount++;
+        routes.add(result);
+    }
+
+    private static void printRoutes() {
+        for (String route : routes) {
+            System.out.println(route);
+        }
+        System.out.println(routes.size());
     }
 
     private static void sortNeighbours() {
@@ -95,5 +134,16 @@ public class Puzzle12 {
                 }
             });
         }
+    }
+
+    private static List<String> getSmallCaves() {
+        List<String> result = new ArrayList<>();
+        for (Node node : nodes) {
+            if (!isUpperCase(node.getName()) && !node.getName().equals("start") && !node.getName().equals("end")) {
+                result.add(node.getName());
+            }
+        }
+
+        return result;
     }
 }
