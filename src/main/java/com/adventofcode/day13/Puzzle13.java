@@ -32,10 +32,11 @@ public class Puzzle13 {
             marks[verticalVal][horizontalVal] = true;
         }
 
-        boolean[][] folded = fold(marks, instructions.get(0)[0], Integer.parseInt(instructions.get(0)[1]));
+        for (String[] instruction : instructions) {
+            marks = fold(marks, instruction[0], Integer.parseInt(instruction[1]));
+        }
 
-        printMarks(folded);
-        System.out.println(countMarks(folded));
+        printMarks(marks);
     }
 
     private static void printMarks(boolean[][] marks) {
